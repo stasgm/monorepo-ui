@@ -10,7 +10,9 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@gorhom/bottom-sheet": "^2.0.3",
     "@lib/ui": "1.0.0",
+    "@lib/components": "0.1.0",
     "expo": "^40.0.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
