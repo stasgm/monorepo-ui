@@ -1,19 +1,34 @@
 import React from 'react'
-import { TextInput, Text, StyleSheet, View, TextInputChangeEventData, NativeSyntheticEvent } from 'react-native'
+import {
+  TextInput,
+  Text,
+  StyleSheet,
+  View,
+  TextInputChangeEventData,
+  NativeSyntheticEvent,
+} from 'react-native'
 
 interface InputProps {
   label: string
-  value: string;
+  value: string
   onChangeText?: (value: string) => void
 }
 
-const emptyFunction = () => { }
+const emptyFunction = () => {}
 
-export default function PrimaryButton({ label, value, onChangeText }: InputProps) {
+export default function PrimaryButton({
+  label,
+  value,
+  onChangeText,
+}: InputProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}:</Text>
-      <TextInput onChangeText={onChangeText || emptyFunction} value={value} style={styles.input} />
+      <TextInput
+        onChangeText={onChangeText || emptyFunction}
+        value={value}
+        style={styles.input}
+      />
     </View>
   )
 }
@@ -31,10 +46,10 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
   },
   input: {
-    backgroundColor: 'lightsalmon',    
-    // backgroundColor: '#4A494A', 
+    backgroundColor: 'lightsalmon',
+    // backgroundColor: '#4A494A',
     textAlign: 'center',
-    height: 50,    
-    width: '80%', 
-  }
+    height: 50,
+    width: '80%',
+  },
 })

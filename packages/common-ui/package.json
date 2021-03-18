@@ -1,0 +1,26 @@
+{
+  "name": "@lib/common-ui",
+  "version": "1.0.0",
+  "description": "common UI package",
+  "main": "index.ts",
+  "license": "MIT",
+  "scripts": {
+    "storybook": "start-storybook",
+    "cleaning": "rm -rf node_modules",
+    "compile": "tsc --noEmit",
+    "build": "yarn compile",
+    "test": "echo 'TODO: test'"
+  },
+  "dependencies": {
+    "@expo/webpack-config": "^0.12.61",
+    "@expo/react-native-action-sheet": "^3.8.0",
+    "babel-loader": "^8.2.2",
+    "expo-app-loading": "^1.0.1",
+    "expo-asset": "^8.2.2",
+    "expo-constants": "~9.3.3",
+    "expo-font": "~8.4.0",
+    "react": "^17.0.1",
+    "react-native-paper": "^4.7.2",
+    "react-native-web": "0.15.0"
+  }
+}

@@ -6,9 +6,7 @@ export default {
 }
 
 export const TestInput = () => {
-  const [name, setName] = useState('Stas');
+  const [name, setName] = useState('Stas')
 
-  return (
-    <PrimaryInput value={name} label="Name" onChangeText={setName} />
-  )
+  return <PrimaryInput value={name} label="Name" onChangeText={setName} />
 }
