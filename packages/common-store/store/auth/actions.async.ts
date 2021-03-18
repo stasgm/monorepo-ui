@@ -33,12 +33,17 @@ const activateDevice = (code: string): ThunkAction<void, IAuthState, unknown, An
     dispatch(authActions.activateDeviceAsync.request(code));
 
     await sleep(1000);
-
-    if (response.deviceData) {
-      return dispatch(authActions.activateDeviceAsync.success(response.deviceData));
+    if (code = '1234') {
+      response = {
+        deviceData: device
+      };
+      if (response.deviceData) {
+        return dispatch(authActions.activateDeviceAsync.success(response.deviceData));
+      }
+      return dispatch(authActions.activateDeviceAsync.failure('device does not exist'));
     }
-
-    return dispatch(authActions.activateDeviceAsync.failure('device does not exist'));
+   return dispatch(authActions.activateDeviceAsync.failure('wrong code'));  
+    
   }
 }
 
