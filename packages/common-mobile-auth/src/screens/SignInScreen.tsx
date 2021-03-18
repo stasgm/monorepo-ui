@@ -19,13 +19,13 @@ import { globalStyles } from '@lib/common-ui';
 */
 
 type Props = {
-  serverReq: IDataFetch;
+  request: IDataFetch;
   onDisconnect: () => void;
   onSignIn: (credentials: IUserCredentials) => void;
 };
 
 const SignInScreen = (props: Props) => {
-  const { onDisconnect, onSignIn, serverReq } = props;
+  const { onDisconnect, onSignIn, request } = props;
   const { colors } = useTheme();   //TODO Вынести в ui
 
   const [credential, setCredentials] = useState<IUserCredentials>({
@@ -80,7 +80,7 @@ const SignInScreen = (props: Props) => {
             />
             <Button
               mode="contained"
-              disabled={serverReq.isLoading}
+              disabled={request.isLoading}
               icon="login"
               onPress={logIn}
               style={globalStyles.rectangularButton}
@@ -89,8 +89,8 @@ const SignInScreen = (props: Props) => {
             </Button>
           </View>
           <View style={style.statusBox}>
-            {serverReq.isError && <Text style={style.errorText}>Ошибка: {serverReq.status}</Text>}
-            {serverReq.isLoading && <ActivityIndicator size="large" color="#70667D" />}
+            {request.isError && <Text style={style.errorText}>Ошибка: {request.status}</Text>}
+            {request.isLoading && <ActivityIndicator size="large" color="#70667D" />}
           </View>
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>

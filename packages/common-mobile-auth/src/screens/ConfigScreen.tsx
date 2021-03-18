@@ -8,12 +8,12 @@ import { globalStyles } from '@lib/common-ui';
 
 export type Props = {
   settings: IBaseUrl | undefined;
-  setSettings: (settings: IBaseUrl) => void;
-  showSettings: (visible: boolean) => void;
+  onSetSettings: (settings: IBaseUrl) => void;
+  onShowSettings: (visible: boolean) => void;
 };
 
 const ConfigScreen = (props: Props) => {
-  const { settings, setSettings, showSettings } = props;
+  const { settings, onSetSettings, onShowSettings } = props;
   const [serverName, setServerName] = useState(settings?.server || '');
   const [serverPort, setServerPort] = useState(settings?.port.toString() || '');
   const [timeout, setTimeout] = useState(settings?.timeout?.toString() || '');
@@ -36,11 +36,11 @@ const ConfigScreen = (props: Props) => {
       server,
     };
 
-    setSettings(url);
+    onSetSettings(url);
   };
 
   const hideSettings = () => {
-    showSettings(false);
+    onShowSettings(false);
   };
 
   return (

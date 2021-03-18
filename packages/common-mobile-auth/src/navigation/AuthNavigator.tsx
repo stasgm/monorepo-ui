@@ -37,20 +37,20 @@ const AuthNavigator: React.FC = () => {
   };
 
   const CongfigWithParams = useCallback(
-    () => <ConfigScreen setSettings={saveSettings} showSettings={showSettings} settings={settings} />,
+    () => <ConfigScreen onSetSettings={saveSettings} onShowSettings={showSettings} settings={settings} />,
     [saveSettings, showSettings, settings],
   );
 
   const SplashWithParams = useCallback(
     () => (
-      <SplashScreen serverReq={serverReq} onShowSettings={showSettings} settings={settings} onCheckDevice={checkDevice} />
+      <SplashScreen request={serverReq} onShowSettings={showSettings} settings={settings} onCheckDevice={checkDevice} />
     ),
     [checkDevice, showSettings, serverReq, settings],
   );
 
   const SignInWithParams = useCallback(
     () => (
-      <SignInScreen serverReq={serverReq} onDisconnect={disconnect} onSignIn={signIn} />
+      <SignInScreen request={serverReq} onDisconnect={disconnect} onSignIn={signIn} />
     ),
     [signIn, disconnect, serverReq],
   );

@@ -7,14 +7,14 @@ import  { globalStyles } from '@lib/common-ui';
 
 type Props = {
   settings: IBaseUrl | undefined;
-  serverReq: IDataFetch;
+  request: IDataFetch;
   onCheckDevice: () => void;
   onBreakConnection?: () => void;
   onShowSettings: (visible: boolean) => void;
 };
 
 const SplashScreen = (props: Props) => {
-  const { onCheckDevice, onBreakConnection, serverReq, settings, onShowSettings } = props;
+  const { onCheckDevice, onBreakConnection, request, settings, onShowSettings } = props;
  
   const { colors } = useTheme();
 
@@ -31,10 +31,10 @@ const SplashScreen = (props: Props) => {
             backgroundColor: colors.background,
           }}
         >
-          {serverReq.isError && <Text style={localStyles.errorText}>Ошибка: {serverReq.status}</Text>}
-          {serverReq.isLoading && <ActivityIndicator size="large" color="#70667D" />}
+          {request.isError && <Text style={localStyles.errorText}>Ошибка: {request.status}</Text>}
+          {request.isLoading && <ActivityIndicator size="large" color="#70667D" />}
         </View>
-        {!serverReq.isLoading ? (
+        {!request.isLoading ? (
           <Button
             onPress={onCheckDevice}
             icon="apps"
