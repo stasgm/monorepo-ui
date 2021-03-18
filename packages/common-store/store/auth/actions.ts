@@ -9,7 +9,7 @@ export const setSettings = createAction('AUTH/SET_SETTINGS')<IBaseUrl>();
 export const setSettingsForm = createAction('AUTH/SET_SETTINGS_FORM')<boolean>();
 export const setCompany = createAction('SET_COMPANY_ID')<ICompany>();
 export const disconnect = createAction('AUTH/DISCONNECT')();
-export const logout = createAction('AUTH/LOGOUT')(); // TODO Сделать sync c выходом на сервере 
+export const logout = createAction('AUTH/LOGOUT')(); // TODO Сделать sync c выходом пользователя на сервере 
 
 const checkDeviceAsync = createAsyncAction(
   'AUTH/CONNECTION',

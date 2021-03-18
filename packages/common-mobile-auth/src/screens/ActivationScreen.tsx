@@ -1,40 +1,22 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
-import { View, KeyboardAvoidingView, Platform, StyleSheet, Keyboard, TouchableWithoutFeedback} from 'react-native';
+import { View, KeyboardAvoidingView, StyleSheet, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { Text, Button, ActivityIndicator, IconButton, TextInput, useTheme } from 'react-native-paper';
 import { globalStyles } from '@lib/common-ui';
 import { IDataFetch } from '@lib/types';
 
-// import { useAuth } from '../context/auth';
-// import globalStyles from '../styles/global';
 type Props = {
-  serverReq: IDataFetch;
-  onDisconnect: () => { };
-  onActivate: (code: string) => { };
+  request: IDataFetch;
+  onDisconnect: () => {};
+  onActivate: (code: string) => {};
 }
 
 const ActivationScreen = (props: Props) => {
   const { colors } = useTheme();
-  const { serverReq, onDisconnect, onActivate } = props;
-
-  /*   const {
-      loading: { serverReq },
-      disconnect,
-      activate,
-    } = useAuth(); // Переделать в пропсы */
-
-/*  const serverReq = {
-    isError: false,
-    isLoading: false,
-    status: '',
-  }; */
-
-  // TODO Прятать клаву и прокинуть пропсами 
- /* const disconnect = () => { };
-  const activate = (code: string) => { }; */
+  const { request, onDisconnect, onActivate } = props;
 
   const [activationCode, setActivationCode] = useState('');
-  console.log('Activation')  
+  console.log('Activation')
 
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   useEffect(() => {
@@ -50,16 +32,15 @@ const ActivationScreen = (props: Props) => {
 
   const isFocused = useIsFocused();
 
-  const sendActivationCode = async () => {
+  const sendActivationCode = () => {
     Keyboard.dismiss();
     onActivate(activationCode);
-    // await activate(activationCode);
   };
 
   return (
     <>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <KeyboardAvoidingView style={[globalStyles.container, isKeyboardVisible && styles.contentWidthKbd]}> 
+        <KeyboardAvoidingView style={[globalStyles.container, isKeyboardVisible && styles.contentWidthKbd]}>
           <View style={globalStyles.container}>
             <Text>Активация устройства</Text>
             <View
@@ -68,8 +49,8 @@ const ActivationScreen = (props: Props) => {
                 backgroundColor: colors.background,
               }}
             >
-              {serverReq.isError && <Text style={styles.errorText}>Ошибка: {serverReq.status}</Text>}
-              {serverReq.isLoading && <ActivityIndicator size="large" color="#70667D" />}
+              {request.isError && <Text style={styles.errorText}>Ошибка: {request.status}</Text>}
+              {request.isLoading && <ActivityIndicator size="large" color="#70667D" />}
             </View>
             <TextInput
               autoFocus={isFocused}
@@ -83,7 +64,7 @@ const ActivationScreen = (props: Props) => {
             />
             <Button
               mode="contained"
-              disabled={serverReq.isLoading}
+              disabled={request.isLoading}
               icon={'login'}
               onPress={sendActivationCode}
               style={globalStyles.rectangularButton}
