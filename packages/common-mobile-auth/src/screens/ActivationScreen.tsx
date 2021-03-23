@@ -1,20 +1,30 @@
 import { useIsFocused } from '@react-navigation/native';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { View, KeyboardAvoidingView, StyleSheet, Keyboard, TouchableWithoutFeedback, ScrollView } from 'react-native';
 import { Text, Button, ActivityIndicator, IconButton, TextInput, useTheme } from 'react-native-paper';
 import { globalStyles } from '@lib/common-ui';
 import { IDataFetch } from '@lib/types';
 import { SubTitle } from '@lib/common-ui/src/components';
+import { useSelector } from 'react-redux';
+import { RootState } from '@lib/common-store';
 
 type Props = {
-  request: IDataFetch;
+  // request: IDataFetch;
   onDisconnect: () => {};
   onActivate: (code: string) => {};
 }
 
 const ActivationScreen = (props: Props) => {
   const { colors } = useTheme();
-  const { request, onDisconnect, onActivate } = props;
+  const { onDisconnect, onActivate } = props;
+
+  const { error, loading, status } = useSelector((state: RootState) => state.auth);
+
+  const request = useMemo(() => ({
+    isError: error,
+    isLoading: loading,
+    status: status,
+  }), [error, loading, status])
 
   const [activationCode, setActivationCode] = useState('');
   console.log('Activation')

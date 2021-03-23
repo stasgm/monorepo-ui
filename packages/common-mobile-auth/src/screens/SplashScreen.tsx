@@ -1,25 +1,34 @@
 import { IBaseUrl, IDataFetch } from '@lib/types';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import { Text, Button, IconButton, useTheme } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
 import { globalStyles } from '@lib/common-ui';
 import { SubTitle } from '@lib/common-ui/src/components';
+import { RootState } from '@lib/common-store';
+import { useSelector } from 'react-redux';
 
 type Props = {
   settings: IBaseUrl | undefined;
-  request: IDataFetch;
   onCheckDevice: () => void;
   onBreakConnection?: () => void;
 };
 
 const SplashScreen = (props: Props) => {
-  const { onCheckDevice, onBreakConnection, request, settings } = props;
+  const { onCheckDevice, onBreakConnection, settings } = props;
 
   const { colors } = useTheme();
 
   const navigation = useNavigation();
+
+  const { error, loading, status } = useSelector((state: RootState) => state.auth);
+
+  const request = useMemo(() => ({
+    isError: error,
+    isLoading: loading,
+    status: status,
+  }), [error, loading, status])
 
   return (
     <>

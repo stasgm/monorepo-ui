@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { View, KeyboardAvoidingView, StyleSheet, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { Text, TextInput, IconButton, Button, ActivityIndicator, useTheme } from 'react-native-paper';
 
@@ -7,6 +7,8 @@ import { IDataFetch, IUserCredentials } from '@lib/types';
 // import { useAuth } from '../context/auth';
 import { globalStyles } from '@lib/common-ui';
 import { SubTitle } from '@lib/common-ui/src/components';
+import { RootState } from '@lib/common-store';
+import { useSelector } from 'react-redux';
 // import globalStyles from '../styles/global';
 
 /*
@@ -20,21 +22,29 @@ import { SubTitle } from '@lib/common-ui/src/components';
 */
 
 type Props = {
-  request: IDataFetch;
+  // request: IDataFetch;
   onDisconnect: () => void;
   onSignIn: (credentials: IUserCredentials) => void;
 };
 
 const SignInScreen = (props: Props) => {
-  const { onDisconnect, onSignIn, request } = props;
+  const { onDisconnect, onSignIn } = props;
   const { colors } = useTheme();   //TODO Вынести в ui
+
+  const { error, loading, status } = useSelector((state: RootState) => state.auth);
+
+  const request = useMemo(() => ({
+    isError: error,
+    isLoading: loading,
+    status: status,
+  }), [error, loading, status])
 
   const [credential, setCredentials] = useState<IUserCredentials>({
     userName: 'Stas',
     password: '123',
   });
 
-  console.log('signIn')  
+  console.log('signIn')
 
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
@@ -43,7 +53,7 @@ const SignInScreen = (props: Props) => {
 
     const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => setKeyboardVisible(false));
 
-    console.log('mount signin');    
+    console.log('mount signin');
     return () => {
       console.log('unmount signin');
       keyboardDidHideListener.remove();
